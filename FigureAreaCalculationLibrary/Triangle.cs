@@ -51,11 +51,11 @@ namespace FigureAreaCalculationLibrary
                 S = (sideA * sideB) / 2;
                 return S;
             }
-            if (((sideA * sideA + sideC * sideC) == sideB * sideB))
+            if (((Math.Pow(sideA,2) + Math.Pow(sideC,2)) == Math.Pow(sideB,2)))
             {
                 S = (sideA * sideC) / 2;
             }
-            if(((sideB * sideB + sideC * sideC) == sideA * sideA))
+            if(((Math.Pow(sideB,2) + Math.Pow(sideC,2)) == Math.Pow(sideA,2)))
             {
                 S = (sideB * sideC) / 2;
             }
