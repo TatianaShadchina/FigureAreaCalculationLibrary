@@ -26,7 +26,7 @@ namespace FigureAreaCalculationLibrary
         double TriangleAreaCalculation();
 
         /// <summary>
-        /// рассчет площади правильного треугольника по трем сторонам
+        /// рассчет площади прямоугольного треугольника по трем сторонам
         /// </summary>
         /// <returns></returns>
         double RightTriangleAreaCalculation();

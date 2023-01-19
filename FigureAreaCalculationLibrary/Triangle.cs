@@ -20,7 +20,7 @@ namespace FigureAreaCalculationLibrary
 
 
         /// <summary>
-        /// рассчет плащади треугольника по трем сторонам(для треугольника, который не является правильным)
+        /// рассчет плащади треугольника по трем сторонам(для треугольника, который не является прямоугольным)
         /// </summary>
         /// <param name="halfPerimeter"></param>
         /// <param name="sideA"></param>
@@ -39,17 +39,26 @@ namespace FigureAreaCalculationLibrary
         }
 
         /// <summary>
-        /// рассчет площади правильного треугольника по трем сторонам
+        /// рассчет площади прямоугольного треугольника по трем сторонам
         /// </summary>
         /// <returns></returns>
         public double RightTriangleAreaCalculation()
         {
-            //высота правильного треугольника
-            var h = (sideA * Math.Sqrt(3)) / 2;
-
-            //площадь
-            var S = (sideA * h) / 2;
-
+            
+            var S = 0d;
+            if((Math.Pow(sideA,2) + Math.Pow(sideB,2)) == Math.Pow(sideC,2))
+            {
+                S = (sideA * sideB) / 2;
+                return S;
+            }
+            if (((sideA * sideA + sideC * sideC) == sideB * sideB))
+            {
+                S = (sideA * sideC) / 2;
+            }
+            if(((sideB * sideB + sideC * sideC) == sideA * sideA))
+            {
+                S = (sideB * sideC) / 2;
+            }
             return S;
         }
 
@@ -64,9 +73,9 @@ namespace FigureAreaCalculationLibrary
         {
             if(!(sideA == sideB && sideA == sideC && sideB == sideC)/*если треугольник не является равносторонним*/
                 /*По т.Пифагора квадрат гипотенузы равен сумме квадратов катетов*/
-                || ((sideA*sideA + sideB*sideB) == sideC*sideC) /*Если сторона С является гипотенузой*/
+                && ( ((sideA*sideA + sideB*sideB) == sideC*sideC) /*Если сторона С является гипотенузой*/
                 || ((sideA*sideA + sideC*sideC) == sideB*sideB) /*Если сторона В является гипотенузой*/
-                || ((sideB*sideB + sideC*sideC) == sideA*sideA) /*Если сторона А является гипотенузой*/
+                || ((sideB*sideB + sideC*sideC) == sideA*sideA) )/*Если сторона А является гипотенузой*/
                 )
             {
                 return true;

@@ -9,6 +9,7 @@ namespace CalculationAreaConsole
     {
         static void Main(string[] args)
         {
+            /*пример прямоугольного треугольника: 24 10 26*/
             Console.WriteLine("Чтоб рассчитать площадь фигуры, введите размерность сторон фигуры через пробел. Либо введите радиус:");
             var input = Console.ReadLine().Split();
             var list = new List<double>(input.Select(double.Parse));
