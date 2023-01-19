@@ -16,7 +16,7 @@ namespace FigureAreaCalculationLibrary
         bool IsRightTriangle();
 
         /// <summary>
-        /// рассчет площади треугольника по трем сторонам(для треугольника, который не является правильным)
+        /// рассчет площади треугольника по трем сторонам(для треугольника, который не является прямоугольным)
         /// </summary>
         /// <param name="halfPerimeter"></param>
         /// <param name="sideA"></param>
