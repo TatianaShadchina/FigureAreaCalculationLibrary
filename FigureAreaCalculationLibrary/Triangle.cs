@@ -1,24 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace FigureAreaCalculationLibrary
 {
     public class Triangle : ITriangle
     {
-        double sideA { get; set; } 
-        double sideB { get; set; }
-        double sideC { get; set; }
-
-        public Triangle(double A, double B, double C)
-        {
-            sideA = A;
-            sideB = B;
-            sideC = C;
-        }
-
-
         /// <summary>
         /// рассчет плащади треугольника по трем сторонам(для треугольника, который не является прямоугольным)
         /// </summary>
@@ -27,7 +12,7 @@ namespace FigureAreaCalculationLibrary
         /// <param name="sideB"></param>
         /// <param name="sideC"></param>
         /// <returns></returns>
-        public double TriangleAreaCalculation()
+        public double TriangleAreaCalculation(double sideA, double sideB, double sideC)
         {
             //полупериметр
             var halfPerimeter = (sideA + sideB + sideC) / 2;
@@ -39,37 +24,13 @@ namespace FigureAreaCalculationLibrary
         }
 
         /// <summary>
-        /// рассчет площади прямоугольного треугольника по трем сторонам
-        /// </summary>
-        /// <returns></returns>
-        public double RightTriangleAreaCalculation()
-        {
-            
-            var S = 0d;
-            if((Math.Pow(sideA,2) + Math.Pow(sideB,2)) == Math.Pow(sideC,2))
-            {
-                S = (sideA * sideB) / 2;
-                return S;
-            }
-            if (((Math.Pow(sideA,2) + Math.Pow(sideC,2)) == Math.Pow(sideB,2)))
-            {
-                S = (sideA * sideC) / 2;
-            }
-            if(((Math.Pow(sideB,2) + Math.Pow(sideC,2)) == Math.Pow(sideA,2)))
-            {
-                S = (sideB * sideC) / 2;
-            }
-            return S;
-        }
-
-        /// <summary>
         /// проверка является ли треугольник прямоугольным. 
         /// </summary>
         /// <param name="sideA"></param>
         /// <param name="sideB"></param>
         /// <param name="sideC"></param>
         /// <returns></returns>
-        public bool IsRightTriangle()
+        public bool IsRightTriangle(double sideA, double sideB, double sideC)
         {
             if(!(sideA == sideB && sideA == sideC && sideB == sideC)/*если треугольник не является равносторонним*/
                 /*По т.Пифагора квадрат гипотенузы равен сумме квадратов катетов*/

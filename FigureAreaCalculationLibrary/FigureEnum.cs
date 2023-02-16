@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FigureAreaCalculationLibrary
+﻿namespace FigureAreaCalculationLibrary
 {
     /// <summary>
     /// Типы фигур
@@ -10,13 +6,18 @@ namespace FigureAreaCalculationLibrary
     public enum FigureEnum
     {
         /// <summary>
-        /// Треугольник
+        /// Фигура не задана
         /// </summary>
-        Triangle = 3,
+        Uknow = 0,
 
         /// <summary>
         /// Круг
         /// </summary>
-        Circle = 1
+        Circle = 1,
+
+        /// <summary>
+        /// Треугольник
+        /// </summary>
+        Triangle = 2,
     }
 }

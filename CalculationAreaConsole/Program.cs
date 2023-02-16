@@ -1,6 +1,6 @@
 ﻿using FigureAreaCalculationLibrary;
+using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace CalculationAreaConsole
@@ -9,43 +9,77 @@ namespace CalculationAreaConsole
     {
         static void Main(string[] args)
         {
-            /*пример прямоугольного треугольника: 24 10 26*/
-            Console.WriteLine("Чтоб рассчитать площадь фигуры, введите размерность сторон фигуры через пробел. Либо введите радиус:");
-            var input = Console.ReadLine().Split();
-            var list = new List<double>(input.Select(double.Parse));
-            
-            foreach(var i in list)
+            // внедрение зависимостей
+            var services = new ServiceCollection();
+            services.AddSingleton<ICalculator, Calculator>();
+            services.AddSingleton<ITriangle, Triangle>();
+            services.AddSingleton<ICircle, Circle>();
+
+            var provider = services.BuildServiceProvider();
+            var calculator = provider.GetService<ICalculator>();
+            //
+
+            //ввод значений
+            while (true)
             {
-                if (i <= 0)
+                var figure = FigureEnum.Uknow;
+                while (true)
                 {
-                    Console.WriteLine("Ошибка! Вы ввели отрицательное или равное нулю число");
-                    return;
+                    Console.WriteLine("Чтоб рассчитать площадь фигуры, введите тип фигуры: Circle или Triangle:");
+                    var line = Console.ReadLine();
+                    var inputFlag = Enum.TryParse<FigureEnum>(line, out figure);
+                    if (inputFlag)
+                    {
+                        break;
+                    }
+                }
+
+                // расчёт площади
+                var area = 0d;
+                var calcParams = Array.Empty<double>();
+                switch (figure)
+                {
+                    case FigureEnum.Triangle:
+                        while (true)
+                        {
+                            Console.WriteLine("Введите длины сторон треугольника:");
+                            calcParams = Console.ReadLine().Split().Select(x => double.TryParse(x, out var d) ? d : 0).ToArray();
+                            if (calcParams.Length == 3)
+                            {
+                                break;
+                            }
+                        }
+                        area = calculator.TriangleAreaCalculation(calcParams[0], calcParams[1], calcParams[2]);
+                        break;
+
+                    case FigureEnum.Circle:
+                        Console.WriteLine("Введите радиус круга:");
+                        while (true)
+                        {
+                            calcParams = Console.ReadLine().Split().Select(x => double.TryParse(x, out var d) ? d : 0).ToArray();
+                            if (calcParams.Length == 1)
+                            {
+                                break;
+                            }
+                        }
+                        area = calculator.CircleAreaCalculation(calcParams[0]);
+                        break;
+
+                    default:
+                        Console.WriteLine("Error");
+                        break;
+                }
+
+                Console.WriteLine(area);
+                Console.WriteLine();
+                Console.WriteLine("Чтобы продолжить, нажмите любую квлавишу. Для выхода из приложения наберите exit");
+                var e = Console.ReadLine();
+
+                if(e == "exit")
+                {
+                    break;
                 }
             }
-            double Area = 0;
-
-            FigureEnum listCount = (FigureEnum)list.Count();
-
-            switch (listCount)
-            {
-                case FigureEnum.Triangle:
-                    Triangle t = new Triangle(list[0], list[1], list[2]);
-                    Area = t.IsRightTriangle() == false ? t.TriangleAreaCalculation() : t.RightTriangleAreaCalculation();
-                    break;
-
-                case FigureEnum.Circle:
-                    Circle c = new Circle(list[0]);
-                    Area = c.CircleAreaCalculation();
-                    break;
-
-                default:
-                    Console.WriteLine("Error");
-                    break;
-                    
-            }
-            Console.WriteLine(Area);
-            Console.ReadLine();
-
         }
     }
 }
